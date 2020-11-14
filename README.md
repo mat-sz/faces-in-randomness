@@ -15,3 +15,9 @@ Run `python3 app.py` and wait until a window with an image shows.
 > The code runs single threaded, don't expect great speeds. It took around 5 minutes to find the first face, although your mileage may vary.
 >
 > I'm getting speeds that hover around 60-70 images generated per second. Python-OpenCV runs on the CPU so the speeds will depend only on how powerful the CPU is.
+
+## Examples
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/mat-sz/faces-in-randomness/master/examples/1.png" alt="Example #1">
+</p>
