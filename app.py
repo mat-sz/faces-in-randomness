@@ -2,15 +2,21 @@ import numpy as np
 import cv2
 import threading
 import time
+import sys
 
 count = 0
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+
+print('faces-in-randomness initialized')
+sys.stdout.flush()
 
 def display_time():
   global count
 
   while True:
-    print('Current speed: ', count, ' images/s')
+    sys.stdout.write("\r")
+    sys.stdout.write('Current speed: ' + str(count) + ' images/s      ')
+    sys.stdout.flush()
     count = 0
     time.sleep(1)
 
