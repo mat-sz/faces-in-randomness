@@ -3,12 +3,26 @@ import cv2
 import threading
 import time
 import sys
+import getopt
 
 count = 0
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 print('faces-in-randomness initialized')
 sys.stdout.flush()
+
+save = False
+try:
+  opts, args = getopt.getopt(sys.argv[1:],"s",["save"])
+except getopt.GetoptError:
+  print('test.py -i <inputfile> -o <outputfile>')
+  sys.exit(2)
+for opt, arg in opts:
+  if opt in ("-s", "--save"):
+      save = True
+
+if save:
+  print('\rResults will be saved.')
 
 def display_time():
   global count
@@ -36,10 +50,13 @@ def search_for_faces():
       for (x, y, w, h) in faces:
           cv2.rectangle(im, (x, y), (x+w, y+h), (255, 0, 0), 2)
 
-      # Display image.
-      cv2.imshow('img', im)
-      cv2.waitKey(0) 
-      cv2.destroyAllWindows()
+      if save:
+        cv2.imwrite('results/' + str(round(time.time() * 1000)) + '.jpg', im)
+      else:
+        # Display image.
+        cv2.imshow('img', im)
+        cv2.waitKey(0) 
+        cv2.destroyAllWindows()
 
 threading.Thread(target=display_time).start()
 threading.Thread(target=search_for_faces).start()
